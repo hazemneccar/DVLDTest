@@ -259,18 +259,9 @@ namespace DVLD_Business
         {
             return (clsTestData.GetPassedTestCount(this.LocalDrivingAppID) == 3);
         }
-        public static int CalculateAge(DateTime birthDate)
-        {
-            int age = DateTime.Today.Year - birthDate.Year;
-
-            if (birthDate.Date > DateTime.Today.AddYears(-age))
-                age--;
-
-            return age;
-        }
         public int IssueLicenseForTheFirstTime(string notes, int createdByUserID)
         {
-            if (clsLicenseClass.Find(LicenseClassID).MinimumAllowedAge > CalculateAge(ApplicantPersonInfo.DateOfBirth)) //belki driver olur 18 yas altı!!!
+            if (clsLicenseClass.Find(LicenseClassID).MinimumAllowedAge > clsUtilityBusiness.CalculateAge(ApplicantPersonInfo.DateOfBirth)) //belki driver olur 18 yas altı!!!
                 return -1;
 
 

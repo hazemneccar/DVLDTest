@@ -88,13 +88,13 @@ namespace DVLD_Business
         {
             return DVLD_DataAccess.clsDriverData.GetAllDrivers();
         }
-        public static DataTable GetAllLicenses(int DriverID)
+        public static DataTable GetDriverLicenses(int DriverID)
         {
-            return DVLD_Business.clsLicense.GetAllLicensesByDriverID(DriverID);
+            return DVLD_Business.clsLicense.GetDriverLicenses(DriverID);
         }
         public DataTable GetAllLicenses()
         {
-            return DVLD_Business.clsLicense.GetAllLicensesByDriverID(this.DriverID);
+            return GetDriverLicenses(this.DriverID);
         }
     }
 }

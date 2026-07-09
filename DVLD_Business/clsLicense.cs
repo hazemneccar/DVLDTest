@@ -34,6 +34,10 @@ namespace DVLD_Business
         public string Notes { get; set; }
         public float PaidFees { get; set; }
         public bool isActive { get; set; }
+        public bool IsDetained
+        {
+            get {return clsDetainedLicense.IsLicenseDetained(this.LicenseID); }
+        }
         public enIssueReason IssueReason { get; set; }
         public string IssueReasonText
         {
@@ -172,16 +176,70 @@ namespace DVLD_Business
         {
             return DeactivateLicense(this.LicenseID);
         }
+        public static bool ActivateLicense(int LicenseID)
+        {
+            return DVLD_DataAccess.clsLicenseData.ActivateLicense(LicenseID);
+        }
         public static bool DeactivateLicense(int LicenseID)
         {
             return DVLD_DataAccess.clsLicenseData.DeactivateLicense(LicenseID);
         }
+        public int DetainLicense(float fineFees, int createdByUserID)
+        {
+            return clsLicense.DetainLicense(this.LicenseID, fineFees, createdByUserID);
+        }
+        public static int DetainLicense(int licenseID, float fineFees, int createdByUserID)
+        {
+            clsDetainedLicense detainedLicense = new clsDetainedLicense();
+            detainedLicense.LicenseID = licenseID;
+            detainedLicense.DetainDate = DateTime.Now;
+            detainedLicense.FineFees = fineFees;
+            detainedLicense.CreatedByUserID = createdByUserID;
+            if (detainedLicense.Save())
+                return detainedLicense.LicenseID;
+            return -1;
+        }
 
+
+        public bool ReleaseLicense(int ReleasedByUserID, ref int ApplicationID)
+        {
+            return clsLicense.ReleaseLicense(this.LicenseID, ReleasedByUserID, ref ApplicationID);
+        }
+        public static bool ReleaseLicense(int licenseID, int ReleasedByUserID, ref int ApplicationID)
+        {
+            ApplicationID = -1;
+            clsDetainedLicense releaseLicense = clsDetainedLicense.Find(clsDetainedLicense.GetDetainedLicenseIDByLicenseID(licenseID));
+            if (releaseLicense != null)
+            {
+                if (releaseLicense.IsReleased)
+                    return false;
+                clsLicense license = clsLicense.Find(licenseID);
+                clsApplication ReleaseApplication = new clsApplication();
+                ReleaseApplication.ApplicantPersonID = license.DriverInfo.PersonID;
+                ReleaseApplication.ApplicationDate = DateTime.Now;
+                ReleaseApplication.ApplicationTypeID = enApplicationTypes.ReleaseDetainedDrivingLicense;
+                ReleaseApplication.ApplicationStatus = enApplicationStatus.Completed;
+                ReleaseApplication.LastStatusDate = DateTime.Now;
+                ReleaseApplication.PaidFees = clsApplicationType.Find(enApplicationTypes.ReleaseDetainedDrivingLicense).ApplicationFees;
+                ReleaseApplication.CreatedByUserID = ReleasedByUserID;
+
+                if (!ReleaseApplication.Save())
+                    return false;
+
+                releaseLicense.ReleaseDate = DateTime.Now;
+                releaseLicense.ReleasedByUserID = licenseID;
+                releaseLicense.ReleaseApplicationID = ReleaseApplication.ApplicationID;
+                ApplicationID = ReleaseApplication.ApplicationID;
+                releaseLicense.Save();
+                return true;
+            }
+            return false;
+        }
         public clsLicense Renew(int CreatedByUserID,string notes)
         {
             
             clsLicense OldLicense=this;
-            if (clslocalDrivingApp.CalculateAge(OldLicense.ApplicationInfo.ApplicantPersonInfo.DateOfBirth)<
+            if (clsUtilityBusiness.CalculateAge(OldLicense.ApplicationInfo.ApplicantPersonInfo.DateOfBirth)<
                 OldLicense.LicenseClassInfo.MinimumAllowedAge)
             {
                 return null;
@@ -260,7 +318,7 @@ namespace DVLD_Business
             if (!NewLicense.Save())
                 return null;
 
-            DeactivateLicense(this.LicenseID))
+            DeactivateLicense(this.LicenseID);
             return NewLicense;
         }
         public bool AddInternationalLicense(int CreatedByUserID)

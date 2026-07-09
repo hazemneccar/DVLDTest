@@ -262,11 +262,11 @@ namespace DVLD_DataAccess
             SqlConnection connection = new SqlConnection(clsDataAccessSettings.connectionString);
 
             string query = @"SELECT People.PersonID, People.NationalNo, People.FirstName, People.SecondName, People.ThirdName, People.LastName, People.DateOfBirth, 
-                  Gender,GenderCaption=CASE WHEN Gender = 0 THEN 'Male' WHEN Gender = 1 THEN 'Female' ELSE 'Unknown' END
-				  ,People.Phone, People.Email,Countries.CountryID, Countries.CountryName
+                  GenderCaption=CASE WHEN Gender = 0 THEN 'Male' WHEN Gender = 1 THEN 'Female' ELSE 'Unknown' END
+				  ,People.Phone, People.Email, Countries.CountryName
                     FROM     People INNER JOIN
                   Countries ON People.NationalityCountryID = Countries.CountryID
-				  order by People.FirstName
+				  order by People.PersonID desc
 
 ";
 

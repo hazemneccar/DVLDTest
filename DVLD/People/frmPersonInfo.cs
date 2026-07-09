@@ -8,13 +8,15 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace DVLD
+namespace DVLD.People
 {
-    public partial class Form1 : Form
+    public partial class frmPersonInfo : Form
     {
-        public Form1()
+        public frmPersonInfo(int PersonID)
         {
             InitializeComponent();
+            ctrlPersonInfo1.LoadPersonInfo(PersonID);
+
         }
     }
 }

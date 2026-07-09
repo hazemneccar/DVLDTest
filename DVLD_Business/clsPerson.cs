@@ -166,9 +166,9 @@ namespace DVLD_Business
             return DVLD_DataAccess.clsPersonData.IsPersonExist(PersonID);
         }
 
-        public static bool IsPersonExist(string PersonID)
+        public static bool IsPersonExist(string NationalNo)
         {
-            return DVLD_DataAccess.clsPersonData.IsPersonExist(PersonID);
+            return DVLD_DataAccess.clsPersonData.IsPersonExist(NationalNo);
         }
     }
 }
