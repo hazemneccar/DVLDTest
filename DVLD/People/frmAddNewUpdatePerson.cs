@@ -78,13 +78,14 @@ namespace DVLD.People
         }
         public void _LoadInfo()
         {
-            _Person = clsPerson.GetPersonInfoByPersonID(_PersonID);
+            _Person = clsPerson.Find(_PersonID);
             if (_Person == null)
             {
                 MessageBox.Show("There is no person with ID="+_PersonID.ToString()+".");
                 this.Close();
                 return;
             }
+            lblPersonID.Text = _PersonID.ToString();
             tbFirstName.Text= _Person.FirstName;
             tbSecondName.Text= _Person.SecondName;
             tbThirdName.Text = _Person.ThirdName;
@@ -116,7 +117,7 @@ namespace DVLD.People
                 linklblRemove.Visible = true;
             }
             //else
-                //SetInitialGenderPhoto();
+                //_SetInitialGenderPhoto();
         }
         private void frmAddNewUpdatePerson_Load(object sender, EventArgs e)
         {
@@ -366,11 +367,13 @@ namespace DVLD.People
                 MessageBox.Show("Some fileds are not valide!, put the mouse over the red icon(s) to see the erro", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
 
+
             }
-            if (CheckAllValues())
+            SaveInfo();
+            /*if (CheckAllValues())
             {
                 SaveInfo();
-            }
+            }*/
         }
 
         private void btnClose_Click(object sender, EventArgs e)

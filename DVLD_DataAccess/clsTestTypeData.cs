@@ -27,7 +27,7 @@ namespace DVLD_DataAccess
                 {
                     testTypeTitle = (string)Reader["TestTypeTitle"];
                     testTypeDescription = (string)Reader["TestTypeDescription"];
-                    testTypeFees = (float)Reader["TestTypeFees"];
+                    testTypeFees = Convert.ToSingle(Reader["TestTypeFees"]);
 
                     isFound = true;
                 }

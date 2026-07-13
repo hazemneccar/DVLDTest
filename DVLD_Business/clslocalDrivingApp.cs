@@ -31,7 +31,7 @@ namespace DVLD_Business
             this.LicenseClassID = LicenseClassID;
             this.ApplicationID = applicationID;
             this.ApplicantPersonID = applicantPersonID;
-            this.ApplicantPersonInfo = clsPerson.GetPersonInfoByPersonID(applicantPersonID);
+            this.ApplicantPersonInfo = clsPerson.Find(applicantPersonID);
             this.ApplicationDate = applicationDate;
             this.ApplicationTypeID =(enApplicationTypes) applicationTypeID;
             this.ApplicationTypeInfo = clsApplicationType.Find((clsApplication.enApplicationTypes)applicationTypeID);
@@ -272,7 +272,7 @@ namespace DVLD_Business
                 Driver.CreatedByUserID= createdByUserID;
                 if (!Driver.Save())
                     return -1;
-                Driver.PersonInfo = clsPerson.GetPersonInfoByPersonID(this.ApplicantPersonID);
+                Driver.PersonInfo = clsPerson.Find(this.ApplicantPersonID);
             }
             clsLicense license=new clsLicense();
             license.ApplicationID = this.ApplicationID;

@@ -56,7 +56,7 @@ namespace DVLD_Business
         {
             this.ApplicationID = applicationID;
             this.ApplicantPersonID = applicantPersonID;
-            this.ApplicantPersonInfo = clsPerson.GetPersonInfoByPersonID(applicationID);
+            this.ApplicantPersonInfo = clsPerson.Find(applicationID);
             this.ApplicationDate = applicationDate;
             this.ApplicationTypeID = (enApplicationTypes)applicationTypeID;
             this.ApplicationTypeInfo=clsApplicationType.Find((clsApplication.enApplicationTypes)applicationTypeID);

@@ -31,7 +31,7 @@ namespace DVLD_DataAccess
                     TestTypeId = (int)reader["TestTypeID"];
                     LocalDrivingAppID = (int)reader["LocalDrivingAppID"];
                     AppointmentDate = (DateTime)reader["AppointmentDate"];
-                    PaidFees = (float)reader["PaidFees"];
+                    PaidFees = Convert.ToSingle(reader["PaidFees"]);
                     CreatedByUserID = (int)reader["CreatedByUserID"];
                     isLocked = (bool)reader["IsLocked"];
 
@@ -78,7 +78,7 @@ namespace DVLD_DataAccess
 
                     LocalDrivingAppID = (int)reader["LocalDrivingAppID"];
                     AppointmentDate = (DateTime)reader["AppointmentDate"];
-                    PaidFees = (float)reader["PaidFees"];
+                    PaidFees = Convert.ToSingle(reader["PaidFees"]);
                     CreatedByUserID = (int)reader["CreatedByUserID"];
                     isLocked = (bool)reader["IsLocked"];
 

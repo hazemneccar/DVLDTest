@@ -15,8 +15,19 @@ namespace DVLD.People
         public frmPersonInfo(int PersonID)
         {
             InitializeComponent();
-            ctrlPersonInfo1.LoadPersonInfo(PersonID);
+            ctrlPersonCard1.LoadPersonInfo(PersonID);
 
+        }
+        public frmPersonInfo(string NationalNo)
+        {
+            InitializeComponent();
+            ctrlPersonCard1.LoadPersonInfo(NationalNo);
+
+        }
+
+        private void btnClose_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }

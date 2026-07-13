@@ -38,7 +38,7 @@ namespace DVLD_DataAccess
                     applicationTypeID = (int)reader["ApplicationTypeID"];
                     applicationStatus = (byte)reader["ApplicationStatus"];
                     lastStatusDate = (DateTime)reader["LastStatusDate"];
-                    paidFees = (float)reader["PaidFees"];
+                    paidFees = Convert.ToSingle(reader["PaidFees"]);
                     createdByUserID = (int)reader["CreatedByUserID"];
                 }
 

@@ -20,7 +20,8 @@ namespace DVLD_Business
         public string LastName { get; set; }
         public string FullName
         {
-            get { return (this.FirstName + " " + this.SecondName + " " + this.ThirdName + " " + this.LastName);}
+            get { 
+                return (this.FirstName + " " + this.SecondName + " " + this.ThirdName + " " + this.LastName);}
         }
         public DateTime DateOfBirth { get; set; }
         public enum enGender
@@ -117,7 +118,7 @@ namespace DVLD_Business
             }
             return false;
         }
-        public static clsPerson GetPersonInfoByPersonID(int PersonID)
+        public static clsPerson Find(int PersonID)
         {
             string firstName = "", nationalID="", secondName = "", thirdName = "", lastName = "";
             string address = "", phone = "", email = "", imagePath = "";
@@ -139,7 +140,7 @@ namespace DVLD_Business
                 return null;
         }
 
-        public static clsPerson GetPersonInfoByNationalNo(string NationalID)
+        public static clsPerson Find(string NationalID)
         {
             string firstName = "", secondName = "", thirdName = "", lastName = "";
             string address = "", phone = "", email = "", imagePath = "";

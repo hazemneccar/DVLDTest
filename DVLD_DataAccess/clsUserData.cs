@@ -366,7 +366,7 @@ namespace DVLD_DataAccess
             SqlConnection connection = new SqlConnection(clsDataAccessSettings.connectionString);
 
             string query = @"SELECT Users.UserID, Users.PersonID
-                            ,FullName=FirstName +' '+ People.SecondName+' '+ People.ThirdName+' '+ People.LastName
+                            ,FullName=FirstName +' '+ People.SecondName+' '+ isnull(People.ThirdName+' ','')+ People.LastName
                             ,Users.UserName,Users.IsActive
                             FROM     Users INNER JOIN
                             People ON Users.PersonID = People.PersonID";

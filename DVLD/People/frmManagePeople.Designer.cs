@@ -32,7 +32,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.cbFilterBy = new System.Windows.Forms.ComboBox();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.dgvPeople = new System.Windows.Forms.DataGridView();
             this.cmsPeople = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.showDetailstsm = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
@@ -48,7 +48,8 @@
             this.button1 = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.cbCountries = new System.Windows.Forms.ComboBox();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            this.btnClose = new System.Windows.Forms.Button();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvPeople)).BeginInit();
             this.cmsPeople.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
@@ -95,21 +96,21 @@
             this.cbFilterBy.TabIndex = 3;
             this.cbFilterBy.SelectedIndexChanged += new System.EventHandler(this.cbFilterBy_SelectedIndexChanged);
             // 
-            // dataGridView1
+            // dgvPeople
             // 
-            this.dataGridView1.AllowUserToAddRows = false;
-            this.dataGridView1.AllowUserToDeleteRows = false;
-            this.dataGridView1.AllowUserToOrderColumns = true;
-            this.dataGridView1.BackgroundColor = System.Drawing.Color.White;
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.ContextMenuStrip = this.cmsPeople;
-            this.dataGridView1.Location = new System.Drawing.Point(1, 285);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.ReadOnly = true;
-            this.dataGridView1.RowHeadersWidth = 51;
-            this.dataGridView1.RowTemplate.Height = 24;
-            this.dataGridView1.Size = new System.Drawing.Size(1545, 298);
-            this.dataGridView1.TabIndex = 4;
+            this.dgvPeople.AllowUserToAddRows = false;
+            this.dgvPeople.AllowUserToDeleteRows = false;
+            this.dgvPeople.AllowUserToOrderColumns = true;
+            this.dgvPeople.BackgroundColor = System.Drawing.Color.White;
+            this.dgvPeople.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvPeople.ContextMenuStrip = this.cmsPeople;
+            this.dgvPeople.Location = new System.Drawing.Point(1, 285);
+            this.dgvPeople.Name = "dgvPeople";
+            this.dgvPeople.ReadOnly = true;
+            this.dgvPeople.RowHeadersWidth = 51;
+            this.dgvPeople.RowTemplate.Height = 24;
+            this.dgvPeople.Size = new System.Drawing.Size(1545, 298);
+            this.dgvPeople.TabIndex = 4;
             // 
             // cmsPeople
             // 
@@ -124,28 +125,28 @@
             this.sendEmailtsm,
             this.PhoneCalltsm});
             this.cmsPeople.Name = "cmsPeople";
-            this.cmsPeople.Size = new System.Drawing.Size(227, 272);
+            this.cmsPeople.Size = new System.Drawing.Size(204, 244);
             // 
             // showDetailstsm
             // 
             this.showDetailstsm.Image = global::DVLD.Properties.Resources.PersonDetails_32;
             this.showDetailstsm.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.showDetailstsm.Name = "showDetailstsm";
-            this.showDetailstsm.Size = new System.Drawing.Size(226, 38);
+            this.showDetailstsm.Size = new System.Drawing.Size(203, 38);
             this.showDetailstsm.Text = "Show Details";
             this.showDetailstsm.Click += new System.EventHandler(this.showDetailstsm_Click);
             // 
             // toolStripMenuItem1
             // 
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(223, 6);
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(200, 6);
             // 
             // addNewPersontsm
             // 
             this.addNewPersontsm.Image = global::DVLD.Properties.Resources.AddPerson_32;
             this.addNewPersontsm.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.addNewPersontsm.Name = "addNewPersontsm";
-            this.addNewPersontsm.Size = new System.Drawing.Size(226, 38);
+            this.addNewPersontsm.Size = new System.Drawing.Size(203, 38);
             this.addNewPersontsm.Text = "Add New Person";
             this.addNewPersontsm.Click += new System.EventHandler(this.addNewPerson);
             // 
@@ -154,7 +155,7 @@
             this.edittsm.Image = global::DVLD.Properties.Resources.edit_32;
             this.edittsm.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.edittsm.Name = "edittsm";
-            this.edittsm.Size = new System.Drawing.Size(226, 38);
+            this.edittsm.Size = new System.Drawing.Size(203, 38);
             this.edittsm.Text = "Edit";
             this.edittsm.Click += new System.EventHandler(this.edittsm_Click);
             // 
@@ -163,21 +164,21 @@
             this.deletetsm.Image = global::DVLD.Properties.Resources.Delete_32;
             this.deletetsm.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.deletetsm.Name = "deletetsm";
-            this.deletetsm.Size = new System.Drawing.Size(226, 38);
+            this.deletetsm.Size = new System.Drawing.Size(203, 38);
             this.deletetsm.Text = "Delete";
             this.deletetsm.Click += new System.EventHandler(this.deletetsm_Click);
             // 
             // toolStripMenuItem2
             // 
             this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-            this.toolStripMenuItem2.Size = new System.Drawing.Size(223, 6);
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(200, 6);
             // 
             // sendEmailtsm
             // 
             this.sendEmailtsm.Image = global::DVLD.Properties.Resources.send_email_32;
             this.sendEmailtsm.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.sendEmailtsm.Name = "sendEmailtsm";
-            this.sendEmailtsm.Size = new System.Drawing.Size(226, 38);
+            this.sendEmailtsm.Size = new System.Drawing.Size(203, 38);
             this.sendEmailtsm.Text = "Send Email";
             // 
             // PhoneCalltsm
@@ -185,7 +186,7 @@
             this.PhoneCalltsm.Image = global::DVLD.Properties.Resources.call_32;
             this.PhoneCalltsm.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.PhoneCalltsm.Name = "PhoneCalltsm";
-            this.PhoneCalltsm.Size = new System.Drawing.Size(226, 38);
+            this.PhoneCalltsm.Size = new System.Drawing.Size(203, 38);
             this.PhoneCalltsm.Text = "Phone Call";
             // 
             // label3
@@ -247,17 +248,31 @@
             this.cbCountries.Visible = false;
             this.cbCountries.SelectedIndexChanged += new System.EventHandler(this.cbCountries_SelectedIndexChanged);
             // 
+            // btnClose
+            // 
+            this.btnClose.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.btnClose.Image = global::DVLD.Properties.Resources.Close_32;
+            this.btnClose.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnClose.Location = new System.Drawing.Point(1438, 590);
+            this.btnClose.Name = "btnClose";
+            this.btnClose.Size = new System.Drawing.Size(108, 42);
+            this.btnClose.TabIndex = 17;
+            this.btnClose.Text = "     Close";
+            this.btnClose.UseVisualStyleBackColor = true;
+            this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
+            // 
             // frmManagePeople
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1547, 632);
+            this.ClientSize = new System.Drawing.Size(1547, 637);
+            this.Controls.Add(this.btnClose);
             this.Controls.Add(this.cbCountries);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.lblFilterValue);
             this.Controls.Add(this.lblRecordsCount);
             this.Controls.Add(this.label3);
-            this.Controls.Add(this.dataGridView1);
+            this.Controls.Add(this.dgvPeople);
             this.Controls.Add(this.cbFilterBy);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.pictureBox1);
@@ -266,7 +281,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "frmManagePeople";
             this.Load += new System.EventHandler(this.frmManagePeople_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvPeople)).EndInit();
             this.cmsPeople.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
@@ -280,7 +295,7 @@
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.ComboBox cbFilterBy;
-        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridView dgvPeople;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label lblRecordsCount;
         private System.Windows.Forms.TextBox lblFilterValue;
@@ -295,5 +310,6 @@
         private System.Windows.Forms.ToolStripMenuItem PhoneCalltsm;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.ComboBox cbCountries;
+        private System.Windows.Forms.Button btnClose;
     }
 }

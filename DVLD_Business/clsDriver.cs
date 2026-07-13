@@ -31,7 +31,7 @@ namespace DVLD_Business
         {
             DriverID = driverID;
             PersonID = personID;
-            clsPerson.GetPersonInfoByPersonID(personID);
+            clsPerson.Find(personID);
             CreatedByUserID = createdByUserID;
             CreatedDate = createdDate;
         }

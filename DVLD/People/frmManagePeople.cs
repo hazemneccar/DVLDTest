@@ -14,7 +14,7 @@ namespace DVLD.People
 {
     public partial class frmManagePeople : Form
     {
-        public DataView PeopleDataView1;
+        private static DataView _dtAllPeople;
         public frmManagePeople()
         {
             InitializeComponent();
@@ -22,9 +22,47 @@ namespace DVLD.People
         private void RefreshData()
         {
             cbFilterBy.SelectedIndex = 0;
-            PeopleDataView1 = DVLD_Business.clsPerson.GetAllPersons().DefaultView;
-            dataGridView1.DataSource = PeopleDataView1;
-            lblRecordsCount.Text = PeopleDataView1.Count.ToString();
+            lblFilterValue.Text = "";
+            _dtAllPeople = DVLD_Business.clsPerson.GetAllPersons().DefaultView;
+            dgvPeople.DataSource = _dtAllPeople;
+
+            if (dgvPeople.Rows.Count>0)
+            {
+                dgvPeople.Columns[0].HeaderText = "Person ID";
+                dgvPeople.Columns[0].Width = 70;
+
+                dgvPeople.Columns[1].HeaderText = "National No.";
+                dgvPeople.Columns[1].Width = 80;
+
+                dgvPeople.Columns[2].HeaderText = "First Name";
+                dgvPeople.Columns[2].Width = 95;
+
+                dgvPeople.Columns[3].HeaderText = "Second Name";
+                dgvPeople.Columns[3].Width = 90;
+
+                dgvPeople.Columns[4].HeaderText = "Third Name";
+                dgvPeople.Columns[4].Width = 90;
+
+                dgvPeople.Columns[5].HeaderText = "Last Name";
+                dgvPeople.Columns[5].Width = 95;
+
+                dgvPeople.Columns[6].HeaderText = "Date Of Birth";
+                dgvPeople.Columns[6].Width = 120;
+
+                dgvPeople.Columns[7].HeaderText = "Gender";
+                dgvPeople.Columns[7].Width = 80;
+
+                dgvPeople.Columns[8].HeaderText = "Nationality";
+                dgvPeople.Columns[8].Width = 100;
+
+                dgvPeople.Columns[9].HeaderText = "Phone";
+                dgvPeople.Columns[9].Width = 120;
+
+                dgvPeople.Columns[10].HeaderText = "Email";
+                dgvPeople.Columns[10].Width = 140;
+            }
+
+            lblRecordsCount.Text = _dtAllPeople.Count.ToString();
         }
         private void frmManagePeople_Load(object sender, EventArgs e)
         {
@@ -36,46 +74,103 @@ namespace DVLD.People
             switch (cbFilterBy.Text)
             {
                 case "None":
-                    PeopleDataView1.RowFilter = $"";
+                    _dtAllPeople.RowFilter = $"";
                     break;
                 case "Person ID":
-                    PeopleDataView1.RowFilter = $"_PersonID = {lblFilterValue.Text}";
+                    _dtAllPeople.RowFilter = $"_PersonID = {lblFilterValue.Text}";
                     break;
                 case "National No":
-                    PeopleDataView1.RowFilter = $"NationalNo LIKE '%{lblFilterValue.Text}%'";
+                        _dtAllPeople.RowFilter = $"NationalNo LIKE '%{lblFilterValue.Text}%'";
                     break;
                 case "First Name":
-                    PeopleDataView1.RowFilter = $"FirstName LIKE '%{lblFilterValue.Text}%'";
+                    _dtAllPeople.RowFilter = $"FirstName LIKE '%{lblFilterValue.Text}%'";
                     break;
                 case "Second Name":
-                    PeopleDataView1.RowFilter = $"SecondName LIKE '%{lblFilterValue.Text}%'";
+                    _dtAllPeople.RowFilter = $"SecondName LIKE '%{lblFilterValue.Text}%'";
                     break;
                 case "Third Name":
-                    PeopleDataView1.RowFilter = $"ThirdName LIKE '%{lblFilterValue.Text}%'";
+                    _dtAllPeople.RowFilter = $"ThirdName LIKE '%{lblFilterValue.Text}%'";
                     break;
                 case "Last Name":
-                    PeopleDataView1.RowFilter = $"LastName LIKE '%{lblFilterValue.Text}%'";
+                    _dtAllPeople.RowFilter = $"LastName LIKE '%{lblFilterValue.Text}%'";
                     break;
                 case "Nationality":
-                    PeopleDataView1.RowFilter = $"CountryName LIKE '%{lblFilterValue.Text}%'";
+                    _dtAllPeople.RowFilter = $"CountryName LIKE '%{lblFilterValue.Text}%'";
                     break;
                 case "Gender":
-                    PeopleDataView1.RowFilter = $"GenderCaption LIKE '%{lblFilterValue.Text}%'";
+                    _dtAllPeople.RowFilter = $"GenderCaption LIKE '%{lblFilterValue.Text}%'";
                     break;
                 case "Phone":
-                    PeopleDataView1.RowFilter = $"Phone LIKE '%{lblFilterValue.Text}%'";
+                    _dtAllPeople.RowFilter = $"Phone LIKE '%{lblFilterValue.Text}%'";
                     break;
                 case "Email":
-                    PeopleDataView1.RowFilter = $"Email LIKE '%{lblFilterValue.Text}%'";
+                    _dtAllPeople.RowFilter = $"Email LIKE '%{lblFilterValue.Text}%'";
                     break;
             }
+        }
+        private void ApplyFilterByCB_AbuHadhoud()
+        {
+            string FilterColumn = "";
+            switch (cbFilterBy.Text)
+            {
+                case "None":
+                    break;
+                case "Person ID":
+                    FilterColumn = "PersonID";
+                    break;
+                case "National No":
+                    FilterColumn = "NationalNo";
+                    break;
+                case "First Name":
+                    FilterColumn = "FirstName";
+                    break;
+                case "Second Name":
+                    FilterColumn = "SecondName";
+                    break;
+                case "Third Name":
+                    FilterColumn = "ThirdName";
+                    break;
+                case "Last Name":
+                    FilterColumn = "LastName";
+                    break;
+                case "Nationality":
+                    FilterColumn = "CountryName";
+                    break;
+                case "Gender":
+                    FilterColumn = "GenderCaption";
+                    break;
+                case "Phone":
+                    FilterColumn = "Phone";
+                    break;
+                case "Email":
+                    FilterColumn = "Email";
+                    break;
+                default:
+                    FilterColumn = "None";
+                    break;
+            }
+            if ((lblFilterValue.Visible==true && lblFilterValue.Text.Trim() == "")
+                 || (cbCountries.Visible == true && cbCountries.Text.Trim() == "")
+                 ||
+                 FilterColumn=="None" )
+            {
+                _dtAllPeople.RowFilter = "";
+                lblRecordsCount.Text = dgvPeople.Rows.Count.ToString();
+                return;
+            }
+            if (FilterColumn == "PersonID")
+                _dtAllPeople.RowFilter = string.Format("[{0}]={1}",FilterColumn,lblFilterValue.Text.Trim());
+            else if (FilterColumn == "CountryName")
+                _dtAllPeople.RowFilter = string.Format("[{0}] LIKE '%{1}%'", FilterColumn, cbCountries.Text.Trim());
+            else
+                _dtAllPeople.RowFilter = string.Format("[{0}] LIKE '%{1}%'", FilterColumn, lblFilterValue.Text.Trim());
+            lblRecordsCount.Text = dgvPeople.Rows.Count.ToString();
         }
 
         private void txtFilterValue_TextChanged(object sender, EventArgs e)
         {
-            ApplyFilterByCB();
+            ApplyFilterByCB_AbuHadhoud();
         }
-
         private void cbFilterBy_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (cbFilterBy.SelectedIndex!=0 && cbFilterBy.Text!= "Nationality") {
@@ -97,10 +192,11 @@ namespace DVLD.People
                 cbCountries_SelectedIndexChanged(sender, e);
             }
         }
-
         private void cbCountries_SelectedIndexChanged(object sender, EventArgs e)
         {
-            PeopleDataView1.RowFilter = $"CountryName = '{cbCountries.Text}'";
+            ApplyFilterByCB_AbuHadhoud();
+            //_dtAllPeople.RowFilter = $"CountryName = '{cbCountries.Text}'";
+
         }
         private void addNewPerson(object sender, EventArgs e)
         {
@@ -108,10 +204,9 @@ namespace DVLD.People
             frmAddNewUpdatePerson.ShowDialog();
             RefreshData();
         }
-
         private void edittsm_Click(object sender, EventArgs e)
         {
-            int.TryParse(dataGridView1.CurrentRow.Cells["PersonID"].Value.ToString(), out int SelectedID);
+            int.TryParse(dgvPeople.CurrentRow.Cells["PersonID"].Value.ToString(), out int SelectedID);
             Form frmAddNewUpdatePerson = new frmAddNewUpdatePerson(SelectedID);
             frmAddNewUpdatePerson.ShowDialog();
             RefreshData();
@@ -120,7 +215,7 @@ namespace DVLD.People
 
         private void deletetsm_Click(object sender, EventArgs e)
         {
-            int.TryParse(dataGridView1.CurrentRow.Cells["PersonID"].Value.ToString(), out int SelectedID);
+            int.TryParse(dgvPeople.CurrentRow.Cells["PersonID"].Value.ToString(), out int SelectedID);
             if (MessageBox.Show("Are you sure that you will delete ID="+SelectedID.ToString()+"?","Alert",MessageBoxButtons.YesNo)==DialogResult.Yes)
             {
                 if (clsPerson.DeletePerson(SelectedID))
@@ -134,10 +229,15 @@ namespace DVLD.People
 
         private void showDetailstsm_Click(object sender, EventArgs e)
         {
-            int.TryParse(dataGridView1.CurrentRow.Cells["PersonID"].Value.ToString(), out int SelectedID);
+            int.TryParse(dgvPeople.CurrentRow.Cells["PersonID"].Value.ToString(), out int SelectedID);
             Form frmAddNewUpdatePerson = new frmPersonInfo(SelectedID);
             frmAddNewUpdatePerson.ShowDialog();
             RefreshData();
+        }
+
+        private void btnClose_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }

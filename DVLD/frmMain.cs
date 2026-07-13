@@ -1,4 +1,7 @@
-﻿using DVLD.People;
+﻿using DVLD.Applications.Application_Types;
+using DVLD.Global_Classes;
+using DVLD.People;
+using DVLD.Users;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -13,9 +16,11 @@ namespace DVLD
 {
     public partial class frmMain : Form
     {
-        public frmMain()
+        private Form _frmLogIn;
+        public frmMain(Form frmLogIn)
         {
             InitializeComponent();
+            _frmLogIn= frmLogIn;
         }
         private void OpenChildForm<T>() where T : Form, new()
         {
@@ -37,7 +42,39 @@ namespace DVLD
 
         private void msPeople_Click(object sender, EventArgs e)
         {
-            OpenChildForm<frmManagePeople>();
+            frmManagePeople frm = new frmManagePeople();
+            frm.ShowDialog();
+        }
+
+        private void msUsers_Click(object sender, EventArgs e)
+        {
+            frmManageUsers frm = new frmManageUsers();
+            frm.ShowDialog();
+        }
+
+        private void currentUserInfotsm_Click(object sender, EventArgs e)
+        {
+            frmUserInfo frm = new frmUserInfo(clsGlobal.CurrentUser.UserID);
+            frm.ShowDialog();
+        }
+
+        private void changePasswordtsm_Click(object sender, EventArgs e)
+        {
+            frmChangePassword frm = new frmChangePassword(clsGlobal.CurrentUser.UserID);
+            frm.ShowDialog();
+        }
+
+        private void signOuttsm_Click(object sender, EventArgs e)
+        {
+            clsGlobal.CurrentUser = null;
+            _frmLogIn.Show();
+            this.Close();
+        }
+
+        private void manageApplicationTypesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            frmListApplicationTypes frm =new frmListApplicationTypes();
+            frm.ShowDialog();
         }
     }
 }

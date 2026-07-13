@@ -26,7 +26,7 @@ namespace DVLD_DataAccess
                 if (Reader.Read())
                 {
                     applicationTypeTitle = (string)Reader["ApplicationTypeTitle"];
-                    applicationFees = (float)Reader["ApplicationFees"];
+                    applicationFees = Convert.ToSingle(Reader["ApplicationFees"]);
 
                     isFound = true;
                 }

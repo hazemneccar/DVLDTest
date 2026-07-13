@@ -26,7 +26,7 @@ namespace DVLD_Business
         private clsUser(int userID,int PersonID,string UserName,string Password,bool isActive) {
             this.UserID = userID;
             this.PersonID = PersonID;
-            this.PersonInfo = clsPerson.GetPersonInfoByPersonID(PersonID);
+            this.PersonInfo = clsPerson.Find(PersonID);
             this.UserName = UserName;
             this.Password = Password;
             this.isActive = isActive;

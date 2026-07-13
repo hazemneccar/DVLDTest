@@ -1,4 +1,8 @@
-﻿using DVLD.People;
+﻿using DVLD.Applications.Application_Types;
+using DVLD.People;
+using DVLD.Tests.TestTypes;
+using DVLD.Users;
+using DVLD.Users.Controls;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,7 +21,7 @@ namespace DVLD
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new frmManagePeople());
+            Application.Run(new frmListTestTypes());
         }
     }
 }
