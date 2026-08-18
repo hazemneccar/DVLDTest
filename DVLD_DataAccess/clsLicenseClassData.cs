@@ -190,7 +190,7 @@ namespace DVLD_DataAccess
 
             SqlConnection connection = new SqlConnection(clsDataAccessSettings.connectionString);
 
-            string query = @"select * from LicensesClasses";
+            string query = @"select * from LicenseClasses";
 
             SqlCommand command = new SqlCommand(query, connection);
 

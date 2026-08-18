@@ -33,24 +33,24 @@
             this.label2 = new System.Windows.Forms.Label();
             this.cbFilterBy = new System.Windows.Forms.ComboBox();
             this.tbFilterValue = new System.Windows.Forms.TextBox();
-            this.dgvUsers = new System.Windows.Forms.DataGridView();
+            this.dgvAllUsers = new System.Windows.Forms.DataGridView();
             this.cmsManageUsers = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.showDetailstsm = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
+            this.AddNewUsertsm = new System.Windows.Forms.ToolStripMenuItem();
+            this.edittsm = new System.Windows.Forms.ToolStripMenuItem();
+            this.deletetsm = new System.Windows.Forms.ToolStripMenuItem();
+            this.changePasswordtsm = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripSeparator();
+            this.sendGmailtsm = new System.Windows.Forms.ToolStripMenuItem();
+            this.phoneCallToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.label3 = new System.Windows.Forms.Label();
             this.lblRecordsCount = new System.Windows.Forms.Label();
             this.cbIsUserActive = new System.Windows.Forms.ComboBox();
             this.btnClose = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
-            this.showDetailstsm = new System.Windows.Forms.ToolStripMenuItem();
-            this.AddNewUsertsm = new System.Windows.Forms.ToolStripMenuItem();
-            this.edittsm = new System.Windows.Forms.ToolStripMenuItem();
-            this.deletetsm = new System.Windows.Forms.ToolStripMenuItem();
-            this.changePasswordtsm = new System.Windows.Forms.ToolStripMenuItem();
-            this.sendGmailtsm = new System.Windows.Forms.ToolStripMenuItem();
-            this.phoneCallToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvUsers)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvAllUsers)).BeginInit();
             this.cmsManageUsers.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
@@ -104,21 +104,21 @@
             this.tbFilterValue.TextChanged += new System.EventHandler(this.lblFilterValue_TextChanged);
             this.tbFilterValue.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbFilterValue_KeyPress);
             // 
-            // dgvUsers
+            // dgvAllUsers
             // 
-            this.dgvUsers.AllowUserToAddRows = false;
-            this.dgvUsers.AllowUserToDeleteRows = false;
-            this.dgvUsers.AllowUserToOrderColumns = true;
-            this.dgvUsers.BackgroundColor = System.Drawing.Color.White;
-            this.dgvUsers.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvUsers.ContextMenuStrip = this.cmsManageUsers;
-            this.dgvUsers.Location = new System.Drawing.Point(1, 273);
-            this.dgvUsers.Name = "dgvUsers";
-            this.dgvUsers.ReadOnly = true;
-            this.dgvUsers.RowHeadersWidth = 51;
-            this.dgvUsers.RowTemplate.Height = 24;
-            this.dgvUsers.Size = new System.Drawing.Size(987, 373);
-            this.dgvUsers.TabIndex = 5;
+            this.dgvAllUsers.AllowUserToAddRows = false;
+            this.dgvAllUsers.AllowUserToDeleteRows = false;
+            this.dgvAllUsers.AllowUserToOrderColumns = true;
+            this.dgvAllUsers.BackgroundColor = System.Drawing.Color.White;
+            this.dgvAllUsers.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvAllUsers.ContextMenuStrip = this.cmsManageUsers;
+            this.dgvAllUsers.Location = new System.Drawing.Point(1, 273);
+            this.dgvAllUsers.Name = "dgvAllUsers";
+            this.dgvAllUsers.ReadOnly = true;
+            this.dgvAllUsers.RowHeadersWidth = 51;
+            this.dgvAllUsers.RowTemplate.Height = 24;
+            this.dgvAllUsers.Size = new System.Drawing.Size(987, 373);
+            this.dgvAllUsers.TabIndex = 5;
             // 
             // cmsManageUsers
             // 
@@ -136,15 +136,76 @@
             this.cmsManageUsers.Name = "cmsManageUsers";
             this.cmsManageUsers.Size = new System.Drawing.Size(210, 282);
             // 
+            // showDetailstsm
+            // 
+            this.showDetailstsm.Image = global::DVLD.Properties.Resources.PersonDetails_32;
+            this.showDetailstsm.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.showDetailstsm.Name = "showDetailstsm";
+            this.showDetailstsm.Size = new System.Drawing.Size(209, 38);
+            this.showDetailstsm.Text = "Show Details";
+            this.showDetailstsm.Click += new System.EventHandler(this.showDetailstsm_Click);
+            // 
             // toolStripMenuItem1
             // 
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
             this.toolStripMenuItem1.Size = new System.Drawing.Size(206, 6);
             // 
+            // AddNewUsertsm
+            // 
+            this.AddNewUsertsm.Image = global::DVLD.Properties.Resources.Add_New_User_32;
+            this.AddNewUsertsm.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.AddNewUsertsm.Name = "AddNewUsertsm";
+            this.AddNewUsertsm.Size = new System.Drawing.Size(209, 38);
+            this.AddNewUsertsm.Text = "Add New User";
+            this.AddNewUsertsm.Click += new System.EventHandler(this.AddNewUser_Click);
+            // 
+            // edittsm
+            // 
+            this.edittsm.Image = global::DVLD.Properties.Resources.edit_32;
+            this.edittsm.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.edittsm.Name = "edittsm";
+            this.edittsm.Size = new System.Drawing.Size(209, 38);
+            this.edittsm.Text = "Edit";
+            this.edittsm.Click += new System.EventHandler(this.edittsm_Click);
+            // 
+            // deletetsm
+            // 
+            this.deletetsm.Image = global::DVLD.Properties.Resources.Delete_32;
+            this.deletetsm.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.deletetsm.Name = "deletetsm";
+            this.deletetsm.Size = new System.Drawing.Size(209, 38);
+            this.deletetsm.Text = "Delete";
+            this.deletetsm.Click += new System.EventHandler(this.deletetsm_Click);
+            // 
+            // changePasswordtsm
+            // 
+            this.changePasswordtsm.Image = global::DVLD.Properties.Resources.Password_32;
+            this.changePasswordtsm.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.changePasswordtsm.Name = "changePasswordtsm";
+            this.changePasswordtsm.Size = new System.Drawing.Size(209, 38);
+            this.changePasswordtsm.Text = "Change Password";
+            this.changePasswordtsm.Click += new System.EventHandler(this.changePasswordtsm_Click);
+            // 
             // toolStripMenuItem2
             // 
             this.toolStripMenuItem2.Name = "toolStripMenuItem2";
             this.toolStripMenuItem2.Size = new System.Drawing.Size(206, 6);
+            // 
+            // sendGmailtsm
+            // 
+            this.sendGmailtsm.Image = global::DVLD.Properties.Resources.send_email_32;
+            this.sendGmailtsm.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.sendGmailtsm.Name = "sendGmailtsm";
+            this.sendGmailtsm.Size = new System.Drawing.Size(209, 38);
+            this.sendGmailtsm.Text = "Send Gmail";
+            // 
+            // phoneCallToolStripMenuItem
+            // 
+            this.phoneCallToolStripMenuItem.Image = global::DVLD.Properties.Resources.call_32;
+            this.phoneCallToolStripMenuItem.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.phoneCallToolStripMenuItem.Name = "phoneCallToolStripMenuItem";
+            this.phoneCallToolStripMenuItem.Size = new System.Drawing.Size(209, 38);
+            this.phoneCallToolStripMenuItem.Text = "Phone Call";
             // 
             // label3
             // 
@@ -204,67 +265,6 @@
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.AddNewUser_Click);
             // 
-            // showDetailstsm
-            // 
-            this.showDetailstsm.Image = global::DVLD.Properties.Resources.PersonDetails_32;
-            this.showDetailstsm.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.showDetailstsm.Name = "showDetailstsm";
-            this.showDetailstsm.Size = new System.Drawing.Size(209, 38);
-            this.showDetailstsm.Text = "Show Details";
-            this.showDetailstsm.Click += new System.EventHandler(this.showDetailstsm_Click);
-            // 
-            // AddNewUsertsm
-            // 
-            this.AddNewUsertsm.Image = global::DVLD.Properties.Resources.Add_New_User_32;
-            this.AddNewUsertsm.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.AddNewUsertsm.Name = "AddNewUsertsm";
-            this.AddNewUsertsm.Size = new System.Drawing.Size(209, 38);
-            this.AddNewUsertsm.Text = "Add New User";
-            this.AddNewUsertsm.Click += new System.EventHandler(this.AddNewUser_Click);
-            // 
-            // edittsm
-            // 
-            this.edittsm.Image = global::DVLD.Properties.Resources.edit_32;
-            this.edittsm.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.edittsm.Name = "edittsm";
-            this.edittsm.Size = new System.Drawing.Size(209, 38);
-            this.edittsm.Text = "Edit";
-            this.edittsm.Click += new System.EventHandler(this.edittsm_Click);
-            // 
-            // deletetsm
-            // 
-            this.deletetsm.Image = global::DVLD.Properties.Resources.Delete_32;
-            this.deletetsm.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.deletetsm.Name = "deletetsm";
-            this.deletetsm.Size = new System.Drawing.Size(209, 38);
-            this.deletetsm.Text = "Delete";
-            this.deletetsm.Click += new System.EventHandler(this.deletetsm_Click);
-            // 
-            // changePasswordtsm
-            // 
-            this.changePasswordtsm.Image = global::DVLD.Properties.Resources.Password_32;
-            this.changePasswordtsm.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.changePasswordtsm.Name = "changePasswordtsm";
-            this.changePasswordtsm.Size = new System.Drawing.Size(209, 38);
-            this.changePasswordtsm.Text = "Change Password";
-            this.changePasswordtsm.Click += new System.EventHandler(this.changePasswordtsm_Click);
-            // 
-            // sendGmailtsm
-            // 
-            this.sendGmailtsm.Image = global::DVLD.Properties.Resources.send_email_32;
-            this.sendGmailtsm.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.sendGmailtsm.Name = "sendGmailtsm";
-            this.sendGmailtsm.Size = new System.Drawing.Size(209, 38);
-            this.sendGmailtsm.Text = "Send Gmail";
-            // 
-            // phoneCallToolStripMenuItem
-            // 
-            this.phoneCallToolStripMenuItem.Image = global::DVLD.Properties.Resources.call_32;
-            this.phoneCallToolStripMenuItem.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.phoneCallToolStripMenuItem.Name = "phoneCallToolStripMenuItem";
-            this.phoneCallToolStripMenuItem.Size = new System.Drawing.Size(209, 38);
-            this.phoneCallToolStripMenuItem.Text = "Phone Call";
-            // 
             // pictureBox1
             // 
             this.pictureBox1.Image = global::DVLD.Properties.Resources.Users_2_400;
@@ -285,7 +285,7 @@
             this.Controls.Add(this.button1);
             this.Controls.Add(this.lblRecordsCount);
             this.Controls.Add(this.label3);
-            this.Controls.Add(this.dgvUsers);
+            this.Controls.Add(this.dgvAllUsers);
             this.Controls.Add(this.tbFilterValue);
             this.Controls.Add(this.cbIsUserActive);
             this.Controls.Add(this.cbFilterBy);
@@ -295,7 +295,7 @@
             this.Name = "frmManageUsers";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "frmManageUsers";
-            ((System.ComponentModel.ISupportInitialize)(this.dgvUsers)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvAllUsers)).EndInit();
             this.cmsManageUsers.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
@@ -310,7 +310,7 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.ComboBox cbFilterBy;
         private System.Windows.Forms.TextBox tbFilterValue;
-        private System.Windows.Forms.DataGridView dgvUsers;
+        private System.Windows.Forms.DataGridView dgvAllUsers;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label lblRecordsCount;
         private System.Windows.Forms.Button button1;

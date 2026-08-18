@@ -111,7 +111,7 @@ namespace DVLD_Business
 
             return null;
         }
-        public static clsInternationalLicense FindByDriverLicenseID(int driverID)
+        public static clsInternationalLicense FindByDriverID(int driverID)
         {
             int internationalLicenseID = -1, applicationID = -1, issuedUsingLocalLicenseID = -1, createdByUserID = -1;
             DateTime issueDate = DateTime.Now, expirationDate = DateTime.Now; bool isActive = false;
@@ -136,7 +136,7 @@ namespace DVLD_Business
         public static bool IsLocalLicenseClassIsSuitableToBeInternational(int LocalLicenseID)
         {
             clsLicense localLicenseInfo=clsLicense.Find(LocalLicenseID);
-            return localLicenseInfo.LicenseClass==(int)clsLicenseClass.enLicenseClasses.Class3OrdinaryDrivingLicense;
+            return localLicenseInfo.LicenseClass==clsLicenseClass.enLicenseClasses.Class3OrdinaryDrivingLicense;
         }
         public static bool IsLocalLicenseActive(int LocalLicenseID)
         {
@@ -150,9 +150,12 @@ namespace DVLD_Business
         public static bool DoesLocalLicenseHaveActiveInternationalLicense(int LocalLicenseID)
         {
             clsLicense LicenseInfo = clsLicense.Find(LocalLicenseID);
-
             if (LicenseInfo != null)
-                return clsInternationalLicense.FindByLocalDrivingLicenseID(LocalLicenseID).isActive;
+            {
+                clsInternationalLicense IntLicense = clsInternationalLicense.FindByLocalDrivingLicenseID(LocalLicenseID);
+                if (IntLicense != null)
+                    return IntLicense.isActive;
+            }
             return false;
         }
         public static int DoesDriverHaveActiveInternationalLicense(int DriverID)
@@ -162,7 +165,7 @@ namespace DVLD_Business
 
         public static bool AddInternationalLicense(int LocalLicenseID,int createdByUserID)
         {
-            clslocalDrivingApp LocalLicenseInfo=clslocalDrivingApp.Find(LocalLicenseID);
+            clsLicense LocalLicenseInfo =clsLicense.Find(LocalLicenseID);
 
 
             if (!IsLocalLicenseActive(LocalLicenseID))
@@ -175,7 +178,7 @@ namespace DVLD_Business
                 return false;
 
             clsApplication InternationalLicApp = new clsApplication();
-            InternationalLicApp.ApplicantPersonID = LocalLicenseInfo.ApplicantPersonID;
+            InternationalLicApp.ApplicantPersonID = LocalLicenseInfo.DriverInfo.PersonID;
             InternationalLicApp.ApplicationTypeID = clsApplication.enApplicationTypes.NewInternationalDrivingLicense;
             InternationalLicApp.ApplicationStatus = clsApplication.enApplicationStatus.Completed;
             InternationalLicApp.PaidFees = clsApplicationType.Find(clsApplication.enApplicationTypes.NewInternationalDrivingLicense).ApplicationFees;
@@ -185,6 +188,7 @@ namespace DVLD_Business
 
             clsInternationalLicense license = new clsInternationalLicense();
             license.ApplicationID = InternationalLicApp.ApplicationID;
+            license.DriverID=LocalLicenseInfo.DriverInfo.DriverID;
             license.IssuedUsingLocalLicenseID = LocalLicenseID;
             license.IssueDate = DateTime.Now;
             license.ExpirationDate = DateTime.Now.AddYears(1);

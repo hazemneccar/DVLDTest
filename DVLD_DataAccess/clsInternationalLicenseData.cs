@@ -158,10 +158,15 @@ namespace DVLD_DataAccess
 
             SqlConnection connection = new SqlConnection(clsDataAccessSettings.connectionString);
 
-            string query = @"SELECT top 1 InternationalLicenseID FROM InternationalLicenses 
+            /*string query = @"SELECT top 1 InternationalLicenseID FROM InternationalLicenses 
                             WHERE DriverID = @DriverID
                             and IsActive=1
 							and GETDATE() between IssueDate and ExpirationDate
+                            order by ExpirationDate desc";*/
+
+            string query = @"SELECT top 1 InternationalLicenseID FROM InternationalLicenses 
+                            WHERE DriverID = @DriverID
+                            and IsActive=1			
                             order by ExpirationDate desc";
 
             SqlCommand command = new SqlCommand(query, connection);
@@ -196,8 +201,8 @@ namespace DVLD_DataAccess
 
             string query = @"update InternationalLicenses
                             set IsActive=0
-                            where DriverID=@DriverID
--
+                            where DriverID=@DriverID;
+
                             INSERT INTO InternationalLicenses (ApplicationID, DriverID, IssuedUsingLocalLicenseID,
                             IssueDate, ExpirationDate, IsActive, CreatedByUserID)
                             VALUES (@ApplicationID, @DriverID, @IssuedUsingLocalLicenseID, @IssueDate, @ExpirationDate,

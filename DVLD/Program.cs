@@ -1,5 +1,13 @@
 ﻿using DVLD.Applications.Application_Types;
+using DVLD.Applications.controls;
+using DVLD.Applications.International_License;
+using DVLD.Applications.Local_Driving_License;
+using DVLD.Applications.Replace_License;
+using DVLD.Drivers;
+using DVLD.Licenses.Detain;
+using DVLD.Licenses.Local_Licenses;
 using DVLD.People;
+using DVLD.Tests;
 using DVLD.Tests.TestTypes;
 using DVLD.Users;
 using DVLD.Users.Controls;
@@ -21,7 +29,8 @@ namespace DVLD
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new frmListTestTypes());
+
+            Application.Run(new frmLogIn());
         }
     }
 }

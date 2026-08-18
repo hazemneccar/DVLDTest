@@ -56,6 +56,53 @@ namespace DVLD_DataAccess
 
             return isFound;
         }
+
+        public static bool GetTestInfoByTestAppointmentID(ref int testID, int testAppointmentID,
+            ref bool testResult, ref string notes, ref int createdByUserID)
+        {
+            bool isFound = false;
+
+            SqlConnection connection = new SqlConnection(clsDataAccessSettings.connectionString);
+
+            string query = "select * from Tests where TestAppointmentID= @TestAppointmentID";
+
+            SqlCommand command = new SqlCommand(query, connection);
+
+            command.Parameters.AddWithValue("@TestAppointmentID", testAppointmentID);
+
+            try
+            {
+                connection.Open();
+
+                SqlDataReader reader = command.ExecuteReader();
+
+                if (reader.Read())
+                {
+                    isFound = true;
+                    testID = (int)reader["TestID"];
+                    testResult = (bool)reader["TestResult"];
+
+                    if (reader["Notes"] != DBNull.Value)
+                        notes = reader["Notes"].ToString().TrimStart();
+                    else
+                        notes = "";
+
+                    createdByUserID = (int)reader["CreatedByUserID"];
+                }
+
+                reader.Close();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            finally
+            {
+                connection.Close();
+            }
+
+            return isFound;
+        }
         public static bool FindLastTestByPersonAndLicenseClass(int PersonID,int LicenseClassID,short TestTypeID
             ,ref int testID, ref int testAppointmentID,
             ref bool testResult, ref string notes, ref int createdByUserID)

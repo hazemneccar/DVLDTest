@@ -156,7 +156,7 @@ namespace DVLD_DataAccess
 
             SqlConnection connection = new SqlConnection(clsDataAccessSettings.connectionString);
 
-            string query = @"select * from LocalDrivingLicenseApplications_View";
+            string query = @"select * from LocalDrivingLicenseApplications_View order by LocalDrivingLicenseApplicationID desc";
 
             SqlCommand command = new SqlCommand(query, connection);
 
@@ -363,7 +363,7 @@ namespace DVLD_DataAccess
 
                 if (result != null)
                 {
-                    ActiveTest = true;
+                    ActiveTest = (bool)result;
                 }
             }
             catch (Exception ex)

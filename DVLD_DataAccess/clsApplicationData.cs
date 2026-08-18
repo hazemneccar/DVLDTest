@@ -279,7 +279,7 @@ namespace DVLD_DataAccess
                      WHERE Applications.ApplicantPersonID = @ApplicantPersonID 
 					   AND Applications.ApplicationTypeID=@ApplicationTypeID
                        AND LocalDrivingLicenseApplications.LicenseClassID = @LicenseClassID
-                       AND Applications.ApplicationStatus = 1";
+                       AND Applications.ApplicationStatus  in (1,3)";
 
             SqlCommand command = new SqlCommand(query, connection);
 
@@ -319,7 +319,7 @@ namespace DVLD_DataAccess
             SqlConnection connection = new SqlConnection(clsDataAccessSettings.connectionString);
 
             string query = @"UPDATE Applications
-                           SET ApplicationStatus = @ApplicationStatus
+                           SET ApplicationStatus = @ApplicationStatus,
                                LastStatusDate = @LastStatusDate
                            WHERE ApplicationID=@ApplicationID";
 

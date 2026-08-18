@@ -7,6 +7,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using static DVLD_Business.clsApplication;
 using static DVLD_Business.clsTestType;
 
 namespace DVLD_Business
@@ -34,6 +35,7 @@ namespace DVLD_Business
         int testAppointmentID, enTestType testTypeID, int localDrivingAppID,
             DateTime appointmentDate, float paidFees, int createdByUserID, bool isLocked, int retakeTestApplicationID)
         {
+            this.mode = enMode.Update;
             this.TestAppointmentId = testAppointmentID;
             this.TestTypeId = testTypeID;
             this.LocalDrivingAppID = localDrivingAppID;
@@ -110,13 +112,80 @@ namespace DVLD_Business
             return DVLD_DataAccess.clsTestAppointmentData.GetTestID(this.TestAppointmentId);
         }
 
+        public static bool AddNewTestAppointment(int localDrivingAppID, enTestType testType,
+            DateTime appointmentDate, int createdByUserID)
+        {
+            clsApplication RetakeApplication = null;
+            if (clsTest.isPersonHaveActiveTestAppointment(localDrivingAppID, testType))
+                return false;
+            if (clslocalDrivingApp.DoesPassPreviousTestType(localDrivingAppID, testType) || clslocalDrivingApp.Find(localDrivingAppID).ApplicationStatus == enApplicationStatus.Completed)
+                return false;
+            if (clsTest.isPersonFaildPrevTest(localDrivingAppID, testType))
+                RetakeApplication = clsTest.CreateRetakeApp(localDrivingAppID, createdByUserID);
+
+
+            clsTestAppointment testAppointment = new clsTestAppointment();
+            testAppointment.TestTypeId = testType;
+            testAppointment.LocalDrivingAppID = localDrivingAppID;
+            testAppointment.AppointmentDate = appointmentDate;
+            testAppointment.PaidFees = clsTestType.Find(testType).TestTypeFees;
+            if (RetakeApplication != null)
+            {
+                testAppointment.PaidFees += RetakeApplication.PaidFees;
+                testAppointment.RetakeTestApplicationID = RetakeApplication.ApplicationID;
+            }
+            testAppointment.CreatedByUserID = createdByUserID;
+            testAppointment.isLocked = false;
+            testAppointment.TestAppointmentId = clsTestAppointmentData.AddNewTestAppointment((int)testAppointment.TestTypeId,
+                testAppointment.LocalDrivingAppID, testAppointment.AppointmentDate, testAppointment.PaidFees,
+                testAppointment.CreatedByUserID, testAppointment.isLocked, testAppointment.RetakeTestApplicationID
+            );
+            return (testAppointment.TestAppointmentId != -1);
+
+            //return testAppointment.Save();
+        }
+        public static bool UpdateTestAppointment(int testAppointmentID, DateTime appointmentDate, int createdByUserID)
+        {
+            clsTestAppointment testAppointment = clsTestAppointment.Find(testAppointmentID);
+            if (testAppointment != null)
+            {
+                if (!testAppointment.isLocked)
+                {
+                    testAppointment.AppointmentDate = appointmentDate;
+                    testAppointment.CreatedByUserID = createdByUserID;
+                    return (testAppointment.Save());
+                }
+            }
+            return false;
+        }
+
         protected bool _AddNewTestAppointment()
         {
-            this.TestAppointmentId = clsTestAppointmentData.AddNewTestAppointment((int)this.TestTypeId,
-                this.LocalDrivingAppID,this.AppointmentDate,this.PaidFees,
-                this.CreatedByUserID,this.isLocked,this.RetakeTestApplicationID
+            clsApplication RetakeApplication = null;
+            if (clsTest.isPersonHaveActiveTestAppointment(this.LocalDrivingAppID,this.TestTypeId))
+                return false;
+            if (clslocalDrivingApp.DoesPassTestType(this.LocalDrivingAppID, this.TestTypeId) || clslocalDrivingApp.Find(this.LocalDrivingAppID).ApplicationStatus == enApplicationStatus.Completed)
+                return false;
+            if (clsTest.isPersonFaildPrevTest(this.LocalDrivingAppID, this.TestTypeId))
+                RetakeApplication = clsTest.CreateRetakeApp(this.LocalDrivingAppID, this.CreatedByUserID);
+
+
+            clsTestAppointment testAppointment = new clsTestAppointment();
+            testAppointment.TestTypeId = this.TestTypeId;
+            testAppointment.LocalDrivingAppID = this.LocalDrivingAppID;
+            testAppointment.AppointmentDate = this.AppointmentDate;
+            testAppointment.PaidFees = clsTestType.Find(this.TestTypeId).TestTypeFees;
+            if (RetakeApplication != null)
+            {
+                testAppointment.RetakeTestApplicationID = RetakeApplication.ApplicationID;
+            }
+            testAppointment.CreatedByUserID = this.CreatedByUserID;
+            testAppointment.isLocked = false;
+            testAppointment.TestAppointmentId = clsTestAppointmentData.AddNewTestAppointment((int)testAppointment.TestTypeId,
+                testAppointment.LocalDrivingAppID, testAppointment.AppointmentDate, testAppointment.PaidFees,
+                testAppointment.CreatedByUserID, testAppointment.isLocked, testAppointment.RetakeTestApplicationID
             );
-            return (this.TestAppointmentId != -1);
+            return (testAppointment.TestAppointmentId != -1);
         }
         protected bool _UpdateTestAppointment()
         {

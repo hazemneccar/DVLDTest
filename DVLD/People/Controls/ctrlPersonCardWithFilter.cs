@@ -192,6 +192,7 @@ namespace DVLD.People.Controls
         public void FilterFocus()
         {
             tbFilterValue.Focus();
+            ParentForm.AcceptButton = btnFind;
         }
 
         private void tbFilterValue_Validating(object sender, CancelEventArgs e)

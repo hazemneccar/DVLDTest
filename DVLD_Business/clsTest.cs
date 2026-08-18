@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using static DVLD_Business.clsApplication;
+using static DVLD_Business.clsLicenseClass;
 using static DVLD_Business.clsTestType;
 
 namespace DVLD_Business
@@ -51,13 +52,25 @@ namespace DVLD_Business
             else
                 return null;
         }
-        public static clsTest FindLastTestByPersonAndLicenseClass(int PersonID,int LicenseID,clsTestType.enTestType testType)
+        public static clsTest FindByTestAppointmentID(int testAppointmentID)
+        {
+            int testID = -1, createdByUserID = -1;
+            bool testResult = false;
+            string notes = "";
+
+            if (clsTestData.GetTestInfoByTestAppointmentID(ref testID, testAppointmentID, ref testResult, ref notes, ref createdByUserID))
+                return new clsTest(testID, testAppointmentID, testResult, notes, createdByUserID);
+            else
+                return null;
+        }
+
+        public static clsTest FindLastTestByPersonAndLicenseClass(int PersonID, enLicenseClasses LicenseClassID, clsTestType.enTestType testType)
         {
             int testID=-1,testAppointmentID = -1, createdByUserID = -1;
             bool testResult = false;
             string notes = "";
 
-            if (clsTestData.FindLastTestByPersonAndLicenseClass(PersonID,LicenseID,(short)testType
+            if (clsTestData.FindLastTestByPersonAndLicenseClass(PersonID,(int)LicenseClassID,(short)testType
                 ,ref testID, ref testAppointmentID, ref testResult, ref notes, ref createdByUserID))
                 return new clsTest(testID,testAppointmentID, testResult, notes, createdByUserID);
             else
@@ -127,46 +140,7 @@ namespace DVLD_Business
             else
                 return null;
         }
-        public static bool AddNewTestAppointment(int localDrivingAppID, enTestType testType,
-            DateTime appointmentDate, int createdByUserID)
-        {
-            clsApplication RetakeApplication = null;
-            if (isPersonHaveActiveTestAppointment(localDrivingAppID, testType))
-                return false;
-            if (clslocalDrivingApp.DoesPassPreviousTestType(localDrivingAppID, testType) || clslocalDrivingApp.Find(localDrivingAppID).ApplicationStatus == enApplicationStatus.Completed)
-                return false;
-            if (clsTest.isPersonFaildPrevTest(localDrivingAppID, testType))
-                RetakeApplication = clsTest.CreateRetakeApp(localDrivingAppID, createdByUserID);
-
-
-            clsTestAppointment testAppointment = new clsTestAppointment();
-            testAppointment.TestTypeId = testType;
-            testAppointment.LocalDrivingAppID = localDrivingAppID;
-            testAppointment.AppointmentDate = appointmentDate;
-            testAppointment.PaidFees = clsTestType.Find(testType).TestTypeFees;
-            if (RetakeApplication != null)
-            {
-                testAppointment.PaidFees += RetakeApplication.PaidFees;
-                testAppointment.RetakeTestApplicationID = RetakeApplication.ApplicationID;
-            }
-            testAppointment.CreatedByUserID = createdByUserID;
-            testAppointment.isLocked = false;
-            return testAppointment.Save();
-        }
-        public static bool UpdateTestAppointment(int testAppointmentID, DateTime appointmentDate, int createdByUserID)
-        {
-            clsTestAppointment testAppointment = clsTestAppointment.Find(testAppointmentID);
-            if (testAppointment != null)
-            {
-                if (!testAppointment.isLocked)
-                {
-                    testAppointment.AppointmentDate = appointmentDate;
-                    testAppointment.CreatedByUserID = createdByUserID;
-                    return (testAppointment.Save());
-                }
-            }
-            return false;
-        }
+        
         public static bool SetTestAppointmentLocked(int testAppointmentID)
         {
             return DVLD_DataAccess.clsTestData.SetTestAppointmentLocked(testAppointmentID);

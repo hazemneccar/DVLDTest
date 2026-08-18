@@ -25,13 +25,13 @@ namespace DVLD_Business
             DriverID = -1;
             PersonID = -1;
             CreatedByUserID = -1;
-            CreatedDate = DateTime.Today;
+            CreatedDate = DateTime.Now;
         }
         private clsDriver(int driverID, int personID, int createdByUserID, DateTime createdDate)
         {
             DriverID = driverID;
             PersonID = personID;
-            clsPerson.Find(personID);
+            PersonInfo= clsPerson.Find(personID);
             CreatedByUserID = createdByUserID;
             CreatedDate = createdDate;
         }

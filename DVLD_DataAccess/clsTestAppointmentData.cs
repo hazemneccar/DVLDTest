@@ -29,7 +29,7 @@ namespace DVLD_DataAccess
                     isFound = true;
 
                     TestTypeId = (int)reader["TestTypeID"];
-                    LocalDrivingAppID = (int)reader["LocalDrivingAppID"];
+                    LocalDrivingAppID = (int)reader["LocalDrivingLicenseApplicationID"];
                     AppointmentDate = (DateTime)reader["AppointmentDate"];
                     PaidFees = Convert.ToSingle(reader["PaidFees"]);
                     CreatedByUserID = (int)reader["CreatedByUserID"];
@@ -145,7 +145,7 @@ namespace DVLD_DataAccess
 
             string query = @"SELECT TestAppointmentID, AppointmentDate, PaidFees, IsLocked
                             FROM     TestAppointments where LocalDrivingLicenseApplicationID=@localDrivingAppID
-                            and TestTypeID=@TestTypeID order by TestTypeID desc";
+                            and TestTypeID=@TestTypeID order by TestAppointmentID desc, TestTypeID desc";
 
             SqlCommand command = new SqlCommand(query, connection);
             command.Parameters.AddWithValue("@localDrivingAppID", localDrivingAppID);

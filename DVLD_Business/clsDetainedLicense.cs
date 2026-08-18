@@ -34,6 +34,7 @@ namespace DVLD_Business
             this.ReleaseDate = DateTime.Now;
             this.ReleasedByUserID = -1;
             this.ReleaseApplicationID = -1;
+            this.mode = enMode.AddNew;
         }
         public clsDetainedLicense(int detainID, int licenseID, DateTime detainDate, float fineFees,
             int createdByUserID,bool isReleased,DateTime releaseDate,int releaseByUserID,int releaseApplicationID)
@@ -47,6 +48,7 @@ namespace DVLD_Business
             this.ReleaseDate = releaseDate;
             this.ReleasedByUserID = releaseByUserID;
             this.ReleaseApplicationID = releaseApplicationID;
+            this.mode = enMode.Update;
         }
 
         public static clsDetainedLicense Find(int detainID)

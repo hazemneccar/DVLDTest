@@ -330,7 +330,7 @@ namespace DVLD_DataAccess
         {
             DataTable dt = new DataTable();
             SqlConnection connection = new SqlConnection(clsDataAccessSettings.connectionString);
-            string query = @"select * from MyLicenses_View where DriverID=@DriverID";
+            string query = @"select * from MyLicenses_View where DriverID=@DriverID order by LicenseID desc";
             SqlCommand command = new SqlCommand(query, connection);
             command.Parameters.AddWithValue("@DriverID", DriverID);
             try

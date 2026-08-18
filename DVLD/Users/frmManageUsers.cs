@@ -30,24 +30,24 @@ namespace DVLD.Users
 
             tbFilterValue.Text = "";
             _dtAllUsers = DVLD_Business.clsUser.GetAllUsers().DefaultView;
-            dgvUsers.DataSource = _dtAllUsers;
+            dgvAllUsers.DataSource = _dtAllUsers;
 
-            if (dgvUsers.Rows.Count > 0)
+            if (dgvAllUsers.Rows.Count > 0)
             {
-                dgvUsers.Columns[0].HeaderText = "User ID";
-                dgvUsers.Columns[0].Width = 90;
+                dgvAllUsers.Columns[0].HeaderText = "User ID";
+                dgvAllUsers.Columns[0].Width = 90;
 
-                dgvUsers.Columns[1].HeaderText = "Person ID";
-                dgvUsers.Columns[1].Width = 90;
+                dgvAllUsers.Columns[1].HeaderText = "Person ID";
+                dgvAllUsers.Columns[1].Width = 90;
 
-                dgvUsers.Columns[2].HeaderText = "Full Name";
-                dgvUsers.Columns[2].Width = 300;
+                dgvAllUsers.Columns[2].HeaderText = "Full Name";
+                dgvAllUsers.Columns[2].Width = 300;
 
-                dgvUsers.Columns[3].HeaderText = "User Name";
-                dgvUsers.Columns[3].Width = 125;
+                dgvAllUsers.Columns[3].HeaderText = "User Name";
+                dgvAllUsers.Columns[3].Width = 125;
 
-                dgvUsers.Columns[4].HeaderText = "Is Active";
-                dgvUsers.Columns[4].Width = 80;
+                dgvAllUsers.Columns[4].HeaderText = "Is Active";
+                dgvAllUsers.Columns[4].Width = 80;
             }
             lblRecordsCount.Text = _dtAllUsers.Count.ToString();
         }
@@ -83,7 +83,7 @@ namespace DVLD.Users
                  || FilterColumn == "")
             {
                 _dtAllUsers.RowFilter = "";
-                lblRecordsCount.Text = dgvUsers.Rows.Count.ToString();
+                lblRecordsCount.Text = dgvAllUsers.Rows.Count.ToString();
                 return;
             }
             if (FilterColumn == "PersonID" || FilterColumn == "UserID")
@@ -108,7 +108,7 @@ namespace DVLD.Users
             }
             else
                 _dtAllUsers.RowFilter = string.Format("[{0}] LIKE '%{1}%'", FilterColumn, tbFilterValue.Text.Trim());
-            lblRecordsCount.Text = dgvUsers.Rows.Count.ToString();
+            lblRecordsCount.Text = dgvAllUsers.Rows.Count.ToString();
         }
 
 
@@ -149,7 +149,7 @@ namespace DVLD.Users
 
         private void showDetailstsm_Click(object sender, EventArgs e)
         {
-            int.TryParse(dgvUsers.CurrentRow.Cells["UserID"].Value.ToString(), out int SelectedID);
+            int.TryParse(dgvAllUsers.CurrentRow.Cells["UserID"].Value.ToString(), out int SelectedID);
             frmUserInfo frmUserInfo = new frmUserInfo(SelectedID);
             frmUserInfo.ShowDialog();
         }
@@ -163,7 +163,7 @@ namespace DVLD.Users
 
         private void edittsm_Click(object sender, EventArgs e)
         {
-            int.TryParse(dgvUsers.CurrentRow.Cells["UserID"].Value.ToString(), out int SelectedID);
+            int.TryParse(dgvAllUsers.CurrentRow.Cells["UserID"].Value.ToString(), out int SelectedID);
             frmAddUpdateUser frmAddUpdateUser = new frmAddUpdateUser(SelectedID);
             frmAddUpdateUser.ShowDialog();
             RefreshData();
@@ -171,7 +171,7 @@ namespace DVLD.Users
 
         private void deletetsm_Click(object sender, EventArgs e)
         {
-            int.TryParse(dgvUsers.CurrentRow.Cells["UserID"].Value.ToString(), out int SelectedID);
+            int.TryParse(dgvAllUsers.CurrentRow.Cells["UserID"].Value.ToString(), out int SelectedID);
             if (clsUser.isUserExist(SelectedID))
             {
                 if (MessageBox.Show("Are you sure that you'll delete this user?", "Alert", MessageBoxButtons.YesNo)==DialogResult.Yes)
@@ -190,7 +190,7 @@ namespace DVLD.Users
 
         private void changePasswordtsm_Click(object sender, EventArgs e)
         {
-            int.TryParse(dgvUsers.CurrentRow.Cells["UserID"].Value.ToString(), out int SelectedID);
+            int.TryParse(dgvAllUsers.CurrentRow.Cells["UserID"].Value.ToString(), out int SelectedID);
             frmChangePassword frmchangePassword = new frmChangePassword(SelectedID);
             frmchangePassword.ShowDialog();
         }
